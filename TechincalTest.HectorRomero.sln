@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Domain", "src\GtMotive.Estimate.Microservice.Domain\GtMotive.Estimate.Microservice.Domain.csproj", "{1E26DDB9-661D-444D-B31D-4C1DA11B4BC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Infrastructure", "src\GtMotive.Estimate.Microservice.Infrastructure\GtMotive.Estimate.Microservice.Infrastructure.csproj", "{438E22AF-2A12-4979-9096-7912A793F374}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Services", "src\GtMotive.Estimate.Microservice.Services\GtMotive.Estimate.Microservice.Services.csproj", "{6C360856-9CC8-42C1-A93D-8900CC689016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Application", "src\GtMotive.Estimate.Microservice.ApplicationCore\GtMotive.Estimate.Microservice.Application.csproj", "{1636EE05-6A9C-4043-BB02-47A718D0AF14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Api", "src\GtMotive.Estimate.Microservice.Api\GtMotive.Estimate.Microservice.Api.csproj", "{800FBF7D-014C-4551-A074-C52656EEB4C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Domain.UnitTest", "tests\GtMotive.Estimate.Microservice.Domain.UnitTest\GtMotive.Estimate.Microservice.Domain.UnitTest.csproj", "{4934E2E3-DF6E-40FA-A468-2B7656A2DD94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E26DDB9-661D-444D-B31D-4C1DA11B4BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E26DDB9-661D-444D-B31D-4C1DA11B4BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E26DDB9-661D-444D-B31D-4C1DA11B4BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E26DDB9-661D-444D-B31D-4C1DA11B4BC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438E22AF-2A12-4979-9096-7912A793F374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438E22AF-2A12-4979-9096-7912A793F374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438E22AF-2A12-4979-9096-7912A793F374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438E22AF-2A12-4979-9096-7912A793F374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C360856-9CC8-42C1-A93D-8900CC689016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C360856-9CC8-42C1-A93D-8900CC689016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C360856-9CC8-42C1-A93D-8900CC689016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C360856-9CC8-42C1-A93D-8900CC689016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1636EE05-6A9C-4043-BB02-47A718D0AF14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1636EE05-6A9C-4043-BB02-47A718D0AF14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1636EE05-6A9C-4043-BB02-47A718D0AF14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1636EE05-6A9C-4043-BB02-47A718D0AF14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{800FBF7D-014C-4551-A074-C52656EEB4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{800FBF7D-014C-4551-A074-C52656EEB4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{800FBF7D-014C-4551-A074-C52656EEB4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{800FBF7D-014C-4551-A074-C52656EEB4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4934E2E3-DF6E-40FA-A468-2B7656A2DD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4934E2E3-DF6E-40FA-A468-2B7656A2DD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4934E2E3-DF6E-40FA-A468-2B7656A2DD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4934E2E3-DF6E-40FA-A468-2B7656A2DD94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4934E2E3-DF6E-40FA-A468-2B7656A2DD94} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05C11E93-83A2-40AC-BFFF-4210FD18F25D}
+	EndGlobalSection
+EndGlobal
