@@ -28,7 +28,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities.Tests
             var customerEntity = new CustomerEntity(customerName);
 
             var rentStartedOn = DateTime.UtcNow.AddDays(1);
-            var rentToFinishOn = DateTime.UtcNow.AddDays(7);
+            var rentToFinishOn = DateTime.UtcNow.AddDays(5);
 
             // Act
             var rentedVechicleEntity = new RentedVehicleEntity(vehicleEntity.Id, rentStartedOn, rentToFinishOn, fleetEntity.Id, customerEntity.Id);
