@@ -10,6 +10,7 @@
 .vs
 *.Development.json
 *.csproj.user 
+*.DotSettings.user 
 
 
 # Build results
