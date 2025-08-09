@@ -9,7 +9,9 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Database
         /// <summary>
         /// Initializes a new instance of the <see cref="FleetContext"/> class.
         /// </summary>
-        public FleetContext()
+        /// <param name="options">DbContext options.</param>
+        public FleetContext(DbContextOptions<FleetContext> options)
+            : base(options)
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);

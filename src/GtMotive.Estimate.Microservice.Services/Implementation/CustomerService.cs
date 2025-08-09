@@ -47,12 +47,9 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
             var availableVehicles =
                 await _fleetRepository.GetAvailableFleetVehicles(source.FleetId);
             var isAvailable = availableVehicles.Any(vehicle => vehicle.VehicleId == source.VehicleId);
-            if (!isAvailable)
-            {
-                return null;
-            }
-
-            return await _customerRepository.RentVehicle(source);
+            return !isAvailable
+                ? null
+                : await _customerRepository.RentVehicle(source);
         }
 
         /// <inheritdoc />

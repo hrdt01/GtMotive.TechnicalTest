@@ -126,16 +126,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Implementation
                 .Where(customer => customer.CustomerId == customerId)
                 .FirstOrDefaultAsync();
 
-            if (fromDb == null)
-            {
-                return null;
-            }
-
-            return new CustomerDto
-            {
-                CustomerId = fromDb.CustomerId,
-                CustomerName = fromDb.CustomerName
-            };
+            return fromDb == null
+                ? null
+                : new CustomerDto
+                {
+                    CustomerId = fromDb.CustomerId,
+                    CustomerName = fromDb.CustomerName
+                };
         }
     }
 }
