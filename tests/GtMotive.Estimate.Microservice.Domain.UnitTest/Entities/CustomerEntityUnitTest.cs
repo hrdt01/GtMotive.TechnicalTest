@@ -1,7 +1,8 @@
-﻿using GtMotive.Estimate.Microservice.Domain.Entities.ValueObjects;
-using GtMotive.Estimate.Microservice.Domain.UnitTest.TestHelpers;
+﻿using GtMotive.Estimate.Microservice.BaseTest.TestHelpers;
+using GtMotive.Estimate.Microservice.Domain.Entities;
+using GtMotive.Estimate.Microservice.Domain.Entities.ValueObjects;
 
-namespace GtMotive.Estimate.Microservice.Domain.Entities.Tests
+namespace GtMotive.Estimate.Microservice.Domain.UnitTest.Entities
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CustomerEntityUnitTest"/> class.
@@ -21,9 +22,9 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities.Tests
             // Act
             var customerEntity = new CustomerEntity(customerName);
 
+            // Assert
             Assert.Multiple(() =>
             {
-                // Assert
                 Assert.That(customerEntity, Is.Not.Null);
                 Assert.That(customerEntity.RentedVehicles.Vehicles, Is.Empty);
             });

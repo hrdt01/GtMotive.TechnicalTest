@@ -1,8 +1,9 @@
-﻿using GtMotive.Estimate.Microservice.Domain.Entities.Exceptions;
+﻿using GtMotive.Estimate.Microservice.BaseTest.TestHelpers;
+using GtMotive.Estimate.Microservice.Domain.Entities;
+using GtMotive.Estimate.Microservice.Domain.Entities.Exceptions;
 using GtMotive.Estimate.Microservice.Domain.Entities.ValueObjects;
-using GtMotive.Estimate.Microservice.Domain.UnitTest.TestHelpers;
 
-namespace GtMotive.Estimate.Microservice.Domain.Entities.Tests
+namespace GtMotive.Estimate.Microservice.Domain.UnitTest.Entities
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="VehicleEntityTest"/> class.
