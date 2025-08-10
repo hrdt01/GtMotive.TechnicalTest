@@ -36,12 +36,12 @@ namespace GtMotive.Estimate.Microservice.Domain.UnitTest.Entities
 
             // Assert
             Assert.That(rentedVechicleEntity, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(rentedVechicleEntity.CustomerId, Is.EqualTo(customerEntity.Id));
                 Assert.That(rentedVechicleEntity.FleetId, Is.EqualTo(fleetEntity.Id));
                 Assert.That(rentedVechicleEntity.VehicleId, Is.EqualTo(vehicleEntity.Id));
-            });
+            }
         }
     }
 }

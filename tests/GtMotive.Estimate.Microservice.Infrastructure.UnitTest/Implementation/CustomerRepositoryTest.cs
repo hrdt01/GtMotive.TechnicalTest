@@ -70,12 +70,12 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.AddNewCustomer(newCustomerDto);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result!.CustomerId.ToString(), Is.Not.Null);
                 Assert.That(result.CustomerName, Is.EqualTo(newCustomerDto.CustomerName));
                 Assert.That(result.RentedVehicles, Is.Null);
-            });
+            }
         }
 
         /// <summary>
@@ -101,12 +101,12 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.GetCustomerById(persistedCustomer!.CustomerId);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result!.CustomerId, Is.EqualTo(persistedCustomer.CustomerId));
                 Assert.That(result.CustomerName, Is.EqualTo(persistedCustomer.CustomerName));
                 Assert.That(result.RentedVehicles, Is.EqualTo(persistedCustomer.RentedVehicles));
-            });
+            }
         }
 
         /// <summary>
@@ -142,13 +142,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.RentVehicle(rentedVehicleDto);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result!.VehicleId, Is.EqualTo(BaseTestConstants.VehicleIdTest));
                 Assert.That(result.FleetId, Is.EqualTo(BaseTestConstants.FleetIdTest));
                 Assert.That(result.CustomerId, Is.EqualTo(persistedCustomer.CustomerId));
-            });
+            }
         }
 
         /// <summary>
@@ -173,12 +173,12 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.ReturnRentedVehicle(rentedVehicle!.RentedVehicleId);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(rentedVehicle, Is.Not.Null);
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result!.EndRent, Is.LessThan(DateTime.UtcNow));
-            });
+            }
         }
 
         /// <summary>
@@ -201,11 +201,11 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
                 BaseTestConstants.CustomerIdTest);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result!.EndRent, Is.EqualTo(BaseTestConstants.RentFinishedOn));
-            });
+            }
         }
 
         /// <summary>
@@ -226,11 +226,11 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.GetRentedVehicleById(BaseTestConstants.RentedVehicleIdTest);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result!.EndRent, Is.EqualTo(BaseTestConstants.RentFinishedOn));
-            });
+            }
         }
     }
 }

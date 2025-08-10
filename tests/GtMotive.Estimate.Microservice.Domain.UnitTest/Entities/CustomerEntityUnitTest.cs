@@ -23,11 +23,11 @@ namespace GtMotive.Estimate.Microservice.Domain.UnitTest.Entities
             var customerEntity = new CustomerEntity(customerName);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(customerEntity, Is.Not.Null);
                 Assert.That(customerEntity.RentedVehicles.Vehicles, Is.Empty);
-            });
+            }
         }
 
         /// <summary>

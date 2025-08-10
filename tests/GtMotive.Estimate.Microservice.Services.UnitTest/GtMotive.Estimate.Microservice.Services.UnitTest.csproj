@@ -22,8 +22,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter" Version="5.1.0" />
-    <ProjectReference Include="..\..\src\GtMotive.Estimate.Microservice.Infrastructure\GtMotive.Estimate.Microservice.Infrastructure.csproj" />
-    <ProjectReference Include="..\GtMotive.Estimate.Microservice.BaseTest\GtMotive.Estimate.Microservice.BaseTest.csproj" />
     <PackageReference Update="SonarAnalyzer.CSharp" Version="10.15.0.120848">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

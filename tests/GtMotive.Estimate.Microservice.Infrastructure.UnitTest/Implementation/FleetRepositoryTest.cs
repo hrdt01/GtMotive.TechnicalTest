@@ -70,12 +70,12 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.AddNewFleet(newFleetDto);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result!.FleetId, Is.Not.EqualTo(Guid.Empty));
                 Assert.That(result.FleetName, Is.EqualTo(newFleetDto.FleetName));
                 Assert.That(result.Vehicles, Is.Empty);
-            });
+            }
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.AddNewVehicle(persistedFleet!.FleetId, newVehicle);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result!.FleetId, Is.Not.EqualTo(Guid.Empty));
                 Assert.That(result.FleetId, Is.EqualTo(persistedFleet.FleetId));
@@ -117,7 +117,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
                 Assert.That(result.Vehicles!.First().Brand, Is.EqualTo(BaseTestConstants.BrandNameTest));
                 Assert.That(result.Vehicles!.First().Model, Is.EqualTo(BaseTestConstants.ModelNameTest));
                 Assert.That(result.Vehicles!.First().ManufacturedOn, Is.EqualTo(BaseTestConstants.ManufacturedOnTest));
-            });
+            }
         }
 
         /// <summary>
@@ -144,13 +144,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             var result = await repositoryInstance.GetFleetById(persistedFleet!.FleetId);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result!.FleetId, Is.Not.EqualTo(Guid.Empty));
                 Assert.That(result.FleetId, Is.EqualTo(persistedFleet.FleetId));
                 Assert.That(result.FleetName, Is.EqualTo(persistedFleet.FleetName));
                 Assert.That(result.Vehicles, Is.Empty);
-            });
+            }
         }
 
         /// <summary>
@@ -178,11 +178,11 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
                 await repositoryInstance.GetAvailableFleetVehicles(persistedFleet!.FleetId);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result, Is.Empty);
-            });
+            }
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
                 await repositoryInstance.GetAvailableFleetVehicles(persistedFleet.FleetId);
 
             // Assert
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result, Is.Not.Empty);
@@ -224,7 +224,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
                 Assert.That(result.First().Brand, Is.EqualTo(BaseTestConstants.BrandNameTest));
                 Assert.That(result.First().Model, Is.EqualTo(BaseTestConstants.ModelNameTest));
                 Assert.That(result.First().ManufacturedOn, Is.EqualTo(BaseTestConstants.ManufacturedOnTest));
-            });
+            }
         }
     }
 }

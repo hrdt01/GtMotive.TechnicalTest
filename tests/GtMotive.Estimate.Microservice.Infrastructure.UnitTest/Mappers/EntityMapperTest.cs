@@ -33,13 +33,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Mappers
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result.ManufacturedOn, Is.EqualTo(dbEntity.Vehicle.ManufacturedOn));
                 Assert.That(result.Brand, Is.EqualTo(dbEntity.Vehicle.Brand));
                 Assert.That(result.Model, Is.EqualTo(dbEntity.Vehicle.Model));
                 Assert.That(result.VehicleId, Is.EqualTo(dbEntity.Vehicle.VehicleId));
-            });
+            }
         }
 
         /// <summary>
@@ -62,13 +62,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Mappers
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result.ManufacturedOn.ToDateTime(), Is.EqualTo(dtoEntity.ManufacturedOn));
                 Assert.That(result.Brand.ToString(), Is.EqualTo(dtoEntity.Brand));
                 Assert.That(result.Model.ToString(), Is.EqualTo(dtoEntity.Model));
                 Assert.That(result.Id.ToString(), Is.EqualTo(dtoEntity.VehicleId.ToString()));
-            });
+            }
         }
 
         /// <summary>
@@ -92,13 +92,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Mappers
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result.ManufacturedOn, Is.EqualTo(domainEntity.ManufacturedOn.ToDateTime()));
                 Assert.That(result.Brand, Is.EqualTo(domainEntity.Brand.ToString()));
                 Assert.That(result.Model, Is.EqualTo(domainEntity.Model.ToString()));
                 Assert.That(result.VehicleId, Is.EqualTo(dtoEntity.VehicleId));
-            });
+            }
         }
     }
 }
