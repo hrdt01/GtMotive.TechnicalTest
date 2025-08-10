@@ -1,6 +1,4 @@
 ﻿using GtMotive.Estimate.Microservice.Domain.DTO;
-using GtMotive.Estimate.Microservice.Domain.Entities.ValueObjects;
-using GtMotive.Estimate.Microservice.Domain.Interfaces;
 using GtMotive.Estimate.Microservice.Infrastructure.Interfaces;
 using GtMotive.Estimate.Microservice.Infrastructure.Logging;
 using GtMotive.Estimate.Microservice.Services.Interfaces;
@@ -12,31 +10,21 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
     public class FleetService : IFleetService
     {
         private readonly IFleetRepository _fleetRepository;
-        private readonly IFleetEntityFactory _fleetEntityFactory;
-        private readonly IVehicleEntityFactory _vehicleEntityFactory;
         private readonly ILogger<FleetService> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FleetService"/> class.
         /// </summary>
         /// <param name="fleetRepository">Instance of <see cref="IFleetRepository"/>.</param>
-        /// <param name="fleetEntityFactory">Instance of <see cref="IFleetEntityFactory"/>.</param>
-        /// <param name="vehicleEntityFactory">Instance of <see cref="IVehicleEntityFactory"/>.</param>
         /// <param name="logger">Instance of <see cref="ILogger"/>.</param>
         public FleetService(
             IFleetRepository fleetRepository,
-            IFleetEntityFactory fleetEntityFactory,
-            IVehicleEntityFactory vehicleEntityFactory,
             ILogger<FleetService> logger)
         {
             ArgumentNullException.ThrowIfNull(fleetRepository);
-            ArgumentNullException.ThrowIfNull(fleetEntityFactory);
-            ArgumentNullException.ThrowIfNull(vehicleEntityFactory);
             ArgumentNullException.ThrowIfNull(logger);
 
             _fleetRepository = fleetRepository;
-            _fleetEntityFactory = fleetEntityFactory;
-            _vehicleEntityFactory = vehicleEntityFactory;
             _logger = logger;
         }
 
@@ -45,9 +33,9 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(newFleetName);
 
-            var entity = _fleetEntityFactory.NewFleet(new FleetName(newFleetName));
+            var fleetDto = new FleetDto { FleetName = newFleetName };
 
-            return await _fleetRepository.AddNewFleet(entity);
+            return await _fleetRepository.AddNewFleet(fleetDto);
         }
 
         /// <inheritdoc />
@@ -66,12 +54,7 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
                 ArgumentNullException.ThrowIfNull(existingFleet);
             }
 
-            var entity = _vehicleEntityFactory.NewVehicle(
-                new Brand(sourceVehicle.Brand!),
-                new Model(sourceVehicle.Model!),
-                new ManufacturedOn(sourceVehicle.ManufacturedOn));
-
-            return await _fleetRepository.AddNewVehicle(existingFleet.FleetId, entity);
+            return await _fleetRepository.AddNewVehicle(existingFleet.FleetId, sourceVehicle);
         }
 
         /// <inheritdoc />

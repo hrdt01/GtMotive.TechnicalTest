@@ -18,9 +18,9 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Mappers
         public void FromDbEntityToDtoTest()
         {
             // Arrange
-            var dbEntity = new FleetVehicle()
+            var dbEntity = new FleetVehicle
             {
-                Vehicle = new Vehicle()
+                Vehicle = new Vehicle
                 {
                     Brand = BaseTestConstants.BrandNameTest,
                     ManufacturedOn = BaseTestConstants.ManufacturedOnTest,
@@ -49,7 +49,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Mappers
         public void FromDtoToDomainTest()
         {
             // Arrange
-            var dtoEntity = new VehicleDto()
+            var dtoEntity = new VehicleDto
             {
                 Brand = BaseTestConstants.BrandNameTest,
                 ManufacturedOn = BaseTestConstants.ManufacturedOnTest,
@@ -78,7 +78,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Mappers
         public void FromDomainToDbEntityTest()
         {
             // Arrange
-            var dtoEntity = new VehicleDto()
+            var dtoEntity = new VehicleDto
             {
                 Brand = BaseTestConstants.BrandNameTest,
                 ManufacturedOn = BaseTestConstants.ManufacturedOnTest,

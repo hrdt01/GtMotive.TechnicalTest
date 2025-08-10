@@ -93,7 +93,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
             ArgumentNullException.ThrowIfNull(model);
 
             _logger.LogInfoProcessRequest($"{nameof(CustomerController)} - ", $"{nameof(ReturnRentedVehicle)}");
-            var request = new ReturnRentedVehicleRequest()
+            var request = new ReturnRentedVehicleRequest
             {
                 RentedVehicleId = model.RentedVehicleId.ToString(),
                 CustomerId = model.CustomerId.ToString()

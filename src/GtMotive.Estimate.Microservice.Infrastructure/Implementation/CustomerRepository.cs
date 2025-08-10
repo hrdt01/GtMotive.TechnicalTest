@@ -12,27 +12,35 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Implementation
     {
         private readonly FleetContext _fleetContext;
         private readonly IRentedVehicleEntityFactory _rentedVehicleEntityFactory;
+        private readonly ICustomerEntityFactory _customerEntityFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
         /// </summary>
         /// <param name="fleetContext">DB context.</param>
         /// <param name="rentedVehicleEntityFactory">Instance of <see cref="IRentedVehicleEntityFactory"/>.</param>
-        public CustomerRepository(FleetContext fleetContext, IRentedVehicleEntityFactory rentedVehicleEntityFactory)
+        /// <param name="customerEntityFactory">Instance of <see cref="ICustomerEntityFactory"/>.</param>
+        public CustomerRepository(
+            FleetContext fleetContext,
+            IRentedVehicleEntityFactory rentedVehicleEntityFactory,
+            ICustomerEntityFactory customerEntityFactory)
         {
             ArgumentNullException.ThrowIfNull(fleetContext);
+            ArgumentNullException.ThrowIfNull(rentedVehicleEntityFactory);
+            ArgumentNullException.ThrowIfNull(customerEntityFactory);
 
             _fleetContext = fleetContext;
             _fleetContext.Database.EnsureCreated();
             _rentedVehicleEntityFactory = rentedVehicleEntityFactory;
+            _customerEntityFactory = customerEntityFactory;
         }
 
         /// <inheritdoc />
-        public async Task<CustomerDto?> AddNewCustomer(ICustomer newCustomer)
+        public async Task<CustomerDto?> AddNewCustomer(CustomerDto newCustomer)
         {
             ArgumentNullException.ThrowIfNull(newCustomer);
 
-            var customerDbInstance = newCustomer.ToDbEntity();
+            var customerDbInstance = newCustomer.ToDbEntity(_customerEntityFactory);
             await _fleetContext.Customers.AddAsync(customerDbInstance);
             await _fleetContext.SaveChangesAsync();
 

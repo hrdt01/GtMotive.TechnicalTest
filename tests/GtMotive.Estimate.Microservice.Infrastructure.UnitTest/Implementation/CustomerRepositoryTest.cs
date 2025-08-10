@@ -1,7 +1,6 @@
 ﻿using GtMotive.Estimate.Microservice.BaseTest.TestHelpers;
 using GtMotive.Estimate.Microservice.Domain.DTO;
-using GtMotive.Estimate.Microservice.Domain.Entities;
-using GtMotive.Estimate.Microservice.Domain.Entities.ValueObjects;
+using GtMotive.Estimate.Microservice.Domain.Interfaces;
 using GtMotive.Estimate.Microservice.Infrastructure.Database;
 using GtMotive.Estimate.Microservice.Infrastructure.Implementation;
 using Microsoft.Data.Sqlite;
@@ -16,7 +15,8 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
     {
         private readonly SqliteConnection _testDbConnection;
         private readonly FleetContext? _testDbContext;
-        private readonly EntityFactory testEntityFactory;
+        private readonly IRentedVehicleEntityFactory testRentedVehicleEntityFactory;
+        private readonly ICustomerEntityFactory testCustomerEntityEntityFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomerRepositoryTest"/> class.
@@ -25,7 +25,8 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         {
             _testDbConnection = TestDbContext.CreateSqliteTestConnection();
             _testDbContext = TestDbContext.CreateContext<FleetContext>(_testDbConnection);
-            testEntityFactory = new EntityFactory();
+            testRentedVehicleEntityFactory = new EntityFactory();
+            testCustomerEntityEntityFactory = new EntityFactory();
         }
 
         /// <summary>
@@ -55,18 +56,24 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         public async Task AddNewCustomerTest()
         {
             // Arrange
-            var repositoryInstance = new CustomerRepository(_testDbContext!, testEntityFactory);
-            var newCustomer =
-                testEntityFactory.NewCustomer(new CustomerName(BaseTestConstants.CustomerNameTest));
+            var repositoryInstance = new CustomerRepository(
+                _testDbContext!,
+                testRentedVehicleEntityFactory,
+                testCustomerEntityEntityFactory);
+
+            var newCustomerDto = new CustomerDto
+            {
+                CustomerName = BaseTestConstants.CustomerNameTest
+            };
 
             // Act
-            var result = await repositoryInstance.AddNewCustomer(newCustomer);
+            var result = await repositoryInstance.AddNewCustomer(newCustomerDto);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result!.CustomerId.ToString(), Is.EqualTo(((CustomerEntity)newCustomer).Id.ToString()));
-                Assert.That(result.CustomerName, Is.EqualTo(((CustomerEntity)newCustomer).CustomerName.ToString()));
+                Assert.That(result!.CustomerId.ToString(), Is.Not.Null);
+                Assert.That(result.CustomerName, Is.EqualTo(newCustomerDto.CustomerName));
                 Assert.That(result.RentedVehicles, Is.Null);
             });
         }
@@ -79,10 +86,16 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         public async Task GetCustomerByIdTest()
         {
             // Arrange
-            var repositoryInstance = new CustomerRepository(_testDbContext!, testEntityFactory);
-            var newCustomer =
-                testEntityFactory.NewCustomer(new CustomerName(BaseTestConstants.CustomerNameTest));
-            var persistedCustomer = await repositoryInstance.AddNewCustomer(newCustomer);
+            var repositoryInstance = new CustomerRepository(
+                _testDbContext!,
+                testRentedVehicleEntityFactory,
+                testCustomerEntityEntityFactory);
+
+            var newCustomerDto = new CustomerDto
+            {
+                CustomerName = BaseTestConstants.CustomerNameTest
+            };
+            var persistedCustomer = await repositoryInstance.AddNewCustomer(newCustomerDto);
 
             // Act
             var result = await repositoryInstance.GetCustomerById(persistedCustomer!.CustomerId);
@@ -91,7 +104,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             Assert.Multiple(() =>
             {
                 Assert.That(result!.CustomerId, Is.EqualTo(persistedCustomer.CustomerId));
-                Assert.That(result!.CustomerName, Is.EqualTo(persistedCustomer.CustomerName));
+                Assert.That(result.CustomerName, Is.EqualTo(persistedCustomer.CustomerName));
                 Assert.That(result.RentedVehicles, Is.EqualTo(persistedCustomer.RentedVehicles));
             });
         }
@@ -105,13 +118,18 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         {
             // Arrange
             TestDbContext.SeedDataToRentVehicle();
-            var repositoryInstance = new CustomerRepository(_testDbContext!, testEntityFactory);
-            var newCustomer =
-                testEntityFactory.NewCustomer(new CustomerName(BaseTestConstants.CustomerNameTest));
+            var repositoryInstance = new CustomerRepository(
+                _testDbContext!,
+                testRentedVehicleEntityFactory,
+                testCustomerEntityEntityFactory);
 
-            var persistedCustomer = await repositoryInstance.AddNewCustomer(newCustomer);
+            var newCustomerDto = new CustomerDto
+            {
+                CustomerName = BaseTestConstants.CustomerNameTest
+            };
+            var persistedCustomer = await repositoryInstance.AddNewCustomer(newCustomerDto);
 
-            var rentedVehicleDto = new RentedVehicleDto()
+            var rentedVehicleDto = new RentedVehicleDto
             {
                 FleetId = BaseTestConstants.FleetIdTest,
                 VehicleId = BaseTestConstants.VehicleIdTest,
@@ -128,7 +146,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
             {
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result!.VehicleId, Is.EqualTo(BaseTestConstants.VehicleIdTest));
-                Assert.That(result!.FleetId, Is.EqualTo(BaseTestConstants.FleetIdTest));
+                Assert.That(result.FleetId, Is.EqualTo(BaseTestConstants.FleetIdTest));
                 Assert.That(result.CustomerId, Is.EqualTo(persistedCustomer.CustomerId));
             });
         }
@@ -142,7 +160,10 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         {
             // Arrange
             TestDbContext.SeedDataToReturnRentedVehicle();
-            var repositoryInstance = new CustomerRepository(_testDbContext!, testEntityFactory);
+            var repositoryInstance = new CustomerRepository(
+                _testDbContext!,
+                testRentedVehicleEntityFactory,
+                testCustomerEntityEntityFactory);
 
             var rentedVehicle = await repositoryInstance.GetRentedVehicleByIdAndCustomerId(
                 BaseTestConstants.RentedVehicleIdTest,
@@ -169,7 +190,10 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         {
             // Arrange
             TestDbContext.SeedDataToReturnRentedVehicle();
-            var repositoryInstance = new CustomerRepository(_testDbContext!, testEntityFactory);
+            var repositoryInstance = new CustomerRepository(
+                _testDbContext!,
+                testRentedVehicleEntityFactory,
+                testCustomerEntityEntityFactory);
 
             // Act
             var result = await repositoryInstance.GetRentedVehicleByIdAndCustomerId(
@@ -193,7 +217,10 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.UnitTest.Implementation
         {
             // Arrange
             TestDbContext.SeedDataToReturnRentedVehicle();
-            var repositoryInstance = new CustomerRepository(_testDbContext!, testEntityFactory);
+            var repositoryInstance = new CustomerRepository(
+                _testDbContext!,
+                testRentedVehicleEntityFactory,
+                testCustomerEntityEntityFactory);
 
             // Act
             var result = await repositoryInstance.GetRentedVehicleById(BaseTestConstants.RentedVehicleIdTest);

@@ -1,5 +1,4 @@
 ﻿using GtMotive.Estimate.Microservice.Domain.DTO;
-using GtMotive.Estimate.Microservice.Domain.Interfaces;
 
 namespace GtMotive.Estimate.Microservice.Infrastructure.Interfaces
 {
@@ -12,16 +11,16 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Interfaces
         /// Add new vehicle to the collection of fleet's vehicles.
         /// </summary>
         /// <param name="fleetId">Fleet identifier.</param>
-        /// <param name="sourceVehicle">Instance of <see cref="IVehicle"/>.</param>
+        /// <param name="sourceVehicle">Instance of <see cref="VehicleDto"/>.</param>
         /// <returns>Instance of <see cref="FleetDto"/>.</returns>
-        Task<FleetDto?> AddNewVehicle(Guid fleetId, IVehicle sourceVehicle);
+        Task<FleetDto?> AddNewVehicle(Guid fleetId, VehicleDto sourceVehicle);
 
         /// <summary>
         /// Add new fleet to the company.
         /// </summary>
-        /// <param name="newFleet"><see cref="IFleet"/> instance.</param>
+        /// <param name="newFleet"><see cref="FleetDto"/> instance.</param>
         /// <returns>Instance of <see cref="FleetDto"/>.</returns>
-        Task<FleetDto?> AddNewFleet(IFleet newFleet);
+        Task<FleetDto?> AddNewFleet(FleetDto newFleet);
 
         /// <summary>
         /// Get all available <see cref="VehicleDto"/> in the fleet.

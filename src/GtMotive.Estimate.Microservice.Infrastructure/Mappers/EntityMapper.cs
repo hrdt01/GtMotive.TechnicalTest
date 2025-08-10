@@ -121,15 +121,18 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Mappers
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(entityFactoryInstance);
-
-            var domainEntity = source.FleetId != Guid.Empty
-                ? entityFactoryInstance.NewFleet(
+            var domainEntity = (source.FleetId != Guid.Empty) switch
+            {
+                true => entityFactoryInstance.NewFleet(
                     new FleetId(source.FleetId),
-                    new FleetName(source.FleetName!),
-                    new FleetVehicles(source.Vehicles!.FromDtoToDomain()))
-                : entityFactoryInstance.NewFleet(
-                    new FleetName(source.FleetName!),
-                    new FleetVehicles(source.Vehicles!.FromDtoToDomain()));
+                    new FleetName(source.FleetName),
+                    new FleetVehicles(source.Vehicles!.FromDtoToDomain())),
+                false => source.Vehicles != null
+                    ? entityFactoryInstance.NewFleet(
+                        new FleetName(source.FleetName),
+                        new FleetVehicles(source.Vehicles!.FromDtoToDomain()))
+                    : entityFactoryInstance.NewFleet(new FleetName(source.FleetName))
+            };
 
             var result = new Domain.DbEntities.Fleet
             {
@@ -145,54 +148,22 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Mappers
         /// Db entity Mapper.
         /// </summary>
         /// <param name="source">IFleet entity.</param>
+        /// <param name="entityFactoryInstance">Instance of <see cref="ICustomerEntityFactory"/>.</param>
         /// <returns>Db entity.</returns>
-        public static Domain.DbEntities.Fleet ToDbEntity(this IFleet source)
+        public static Domain.DbEntities.Customer ToDbEntity(
+            this CustomerDto source,
+            ICustomerEntityFactory entityFactoryInstance)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(entityFactoryInstance);
 
-            var result = new Domain.DbEntities.Fleet
-            {
-                FleetId = Guid.Parse(((FleetEntity)source).Id.ToString()),
-                FleetName = ((FleetEntity)source).FleetName.ToString(),
-                FleetVehicles = ((FleetEntity)source).FleetVehicles.Vehicles.FromDomainToDbEntity(Guid.Parse(((FleetEntity)source).Id.ToString()))
-            };
-
-            return result;
-        }
-
-        /// <summary>
-        /// Db entity Mapper.
-        /// </summary>
-        /// <param name="source">IFleet entity.</param>
-        /// <returns>Db entity.</returns>
-        public static Domain.DbEntities.Customer ToDbEntity(this ICustomer source)
-        {
-            ArgumentNullException.ThrowIfNull(source);
+            var domainEntity =
+                entityFactoryInstance.NewCustomer(new CustomerName(source.CustomerName!));
 
             var result = new Domain.DbEntities.Customer
             {
-                CustomerId = Guid.Parse(((CustomerEntity)source).Id.ToString()),
-                CustomerName = ((CustomerEntity)source).CustomerName.ToString()
-            };
-
-            return result;
-        }
-
-        /// <summary>
-        /// Db entity Mapper.
-        /// </summary>
-        /// <param name="source">IVehicle entity.</param>
-        /// <returns>Db entity.</returns>
-        public static Domain.DbEntities.Vehicle ToDbEntity(this IVehicle source)
-        {
-            ArgumentNullException.ThrowIfNull(source);
-
-            var result = new Domain.DbEntities.Vehicle
-            {
-                VehicleId = Guid.Parse(((VehicleEntity)source).Id.ToString()),
-                Model = ((VehicleEntity)source).Model.ToString(),
-                Brand = ((VehicleEntity)source).Brand.ToString(),
-                ManufacturedOn = ((VehicleEntity)source).ManufacturedOn.ToDateTime()
+                CustomerId = Guid.Parse(((CustomerEntity)domainEntity).Id.ToString()),
+                CustomerName = ((CustomerEntity)domainEntity).CustomerName.ToString()
             };
 
             return result;

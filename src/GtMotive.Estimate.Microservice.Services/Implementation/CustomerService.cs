@@ -1,6 +1,4 @@
 ﻿using GtMotive.Estimate.Microservice.Domain.DTO;
-using GtMotive.Estimate.Microservice.Domain.Entities.ValueObjects;
-using GtMotive.Estimate.Microservice.Domain.Interfaces;
 using GtMotive.Estimate.Microservice.Infrastructure.Interfaces;
 using GtMotive.Estimate.Microservice.Infrastructure.Logging;
 using GtMotive.Estimate.Microservice.Services.Interfaces;
@@ -13,7 +11,6 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IFleetRepository _fleetRepository;
-        private readonly ICustomerEntityFactory _customerEntityFactory;
         private readonly ILogger<CustomerService> _logger;
 
         /// <summary>
@@ -21,22 +18,18 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
         /// </summary>
         /// <param name="customerRepository">Instance of <see cref="ICustomerRepository"/>.</param>
         /// <param name="fleetRepository">Instance of <see cref="IFleetRepository"/>.</param>
-        /// <param name="customerEntityFactory">Instance of <see cref="ICustomerEntityFactory"/>.</param>
         /// <param name="logger">Instance of <see cref="ILogger"/>.</param>
         public CustomerService(
             ICustomerRepository customerRepository,
             IFleetRepository fleetRepository,
-            ICustomerEntityFactory customerEntityFactory,
             ILogger<CustomerService> logger)
         {
             ArgumentNullException.ThrowIfNull(customerRepository);
             ArgumentNullException.ThrowIfNull(fleetRepository);
-            ArgumentNullException.ThrowIfNull(customerEntityFactory);
             ArgumentNullException.ThrowIfNull(logger);
 
             _customerRepository = customerRepository;
             _fleetRepository = fleetRepository;
-            _customerEntityFactory = customerEntityFactory;
             _logger = logger;
         }
 
@@ -79,9 +72,9 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(newCustomerName);
 
-            var entity = _customerEntityFactory.NewCustomer(new CustomerName(newCustomerName));
+            var customerDto = new CustomerDto { CustomerName = newCustomerName };
 
-            return await _customerRepository.AddNewCustomer(entity);
+            return await _customerRepository.AddNewCustomer(customerDto);
         }
     }
 }

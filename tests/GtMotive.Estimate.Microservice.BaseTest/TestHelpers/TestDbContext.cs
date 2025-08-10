@@ -64,13 +64,13 @@ namespace GtMotive.Estimate.Microservice.BaseTest.TestHelpers
             using var testDbConnection = CreateSqliteTestConnection();
             using var testDbContext = CreateContext<FleetContext>(testDbConnection);
             testDbContext!.Vehicles.RemoveRange(
-                testDbContext!.Vehicles.Where(vehicle => vehicle.VehicleId == BaseTestConstants.VehicleIdTest));
-            testDbContext!.Fleet.RemoveRange(
-                testDbContext!.Fleet.Where(fleet => fleet.FleetName == BaseTestConstants.FleetNameTest));
-            testDbContext!.Customers.RemoveRange(
-                testDbContext!.Customers.Where(customer => customer.CustomerName == BaseTestConstants.CustomerNameTest));
+                testDbContext.Vehicles.Where(vehicle => vehicle.VehicleId == BaseTestConstants.VehicleIdTest));
+            testDbContext.Fleet.RemoveRange(
+                testDbContext.Fleet.Where(fleet => fleet.FleetName == BaseTestConstants.FleetNameTest));
+            testDbContext.Customers.RemoveRange(
+                testDbContext.Customers.Where(customer => customer.CustomerName == BaseTestConstants.CustomerNameTest));
 
-            testDbContext!.SaveChanges();
+            testDbContext.SaveChanges();
         }
 
         /// <summary>
@@ -78,32 +78,32 @@ namespace GtMotive.Estimate.Microservice.BaseTest.TestHelpers
         /// </summary>
         public static void SeedDataToRentVehicle()
         {
-            var initialFleet = new Fleet()
+            var initialFleet = new Fleet
             {
                 FleetName = BaseTestConstants.FleetNameTest,
                 FleetId = BaseTestConstants.FleetIdTest
             };
-            var initialVehicle = new Vehicle()
+            var initialVehicle = new Vehicle
             {
                 Brand = BaseTestConstants.BrandNameTest,
                 Model = BaseTestConstants.ModelNameTest,
                 ManufacturedOn = BaseTestConstants.ManufacturedOnTest,
                 VehicleId = BaseTestConstants.VehicleIdTest
             };
-            var initialFleetVehicle = new FleetVehicle()
+            var initialFleetVehicle = new FleetVehicle
             {
                 FleetId = initialFleet.FleetId,
                 VehicleId = initialVehicle.VehicleId
             };
 #pragma warning disable IDE0028
-            initialFleet.FleetVehicles = new List<FleetVehicle>() { initialFleetVehicle };
+            initialFleet.FleetVehicles = new List<FleetVehicle> { initialFleetVehicle };
 #pragma warning restore IDE0028
 
             using var testDbConnection = CreateSqliteTestConnection();
             using var testDbContext = CreateContext<FleetContext>(testDbConnection);
             testDbContext!.Vehicles.Add(initialVehicle);
-            testDbContext!.Fleet.Add(initialFleet);
-            testDbContext!.SaveChanges();
+            testDbContext.Fleet.Add(initialFleet);
+            testDbContext.SaveChanges();
         }
 
         /// <summary>
@@ -111,29 +111,29 @@ namespace GtMotive.Estimate.Microservice.BaseTest.TestHelpers
         /// </summary>
         public static void SeedDataToReturnRentedVehicle()
         {
-            var initialCustomer = new Customer()
+            var initialCustomer = new Customer
             {
                 CustomerName = BaseTestConstants.CustomerNameTest,
                 CustomerId = BaseTestConstants.CustomerIdTest
             };
-            var initialFleet = new Fleet()
+            var initialFleet = new Fleet
             {
                 FleetName = BaseTestConstants.FleetNameTest,
                 FleetId = BaseTestConstants.FleetIdTest
             };
-            var initialVehicle = new Vehicle()
+            var initialVehicle = new Vehicle
             {
                 Brand = BaseTestConstants.BrandNameTest,
                 Model = BaseTestConstants.ModelNameTest,
                 ManufacturedOn = BaseTestConstants.ManufacturedOnTest,
                 VehicleId = BaseTestConstants.VehicleIdTest
             };
-            var initialFleetVehicle = new FleetVehicle()
+            var initialFleetVehicle = new FleetVehicle
             {
                 FleetId = initialFleet.FleetId,
                 VehicleId = initialVehicle.VehicleId
             };
-            var initialRentedVehicle = new RentedVehicle()
+            var initialRentedVehicle = new RentedVehicle
             {
                 FleetId = initialFleet.FleetId,
                 VehicleId = initialVehicle.VehicleId,
@@ -143,16 +143,16 @@ namespace GtMotive.Estimate.Microservice.BaseTest.TestHelpers
                 RentedVehicleId = BaseTestConstants.RentedVehicleIdTest
             };
 #pragma warning disable IDE0028
-            initialFleet.FleetVehicles = new List<FleetVehicle>() { initialFleetVehicle };
+            initialFleet.FleetVehicles = new List<FleetVehicle> { initialFleetVehicle };
 #pragma warning restore IDE0028
 
             using var testDbConnection = CreateSqliteTestConnection();
             using var testDbContext = CreateContext<FleetContext>(testDbConnection);
             testDbContext!.Customers.Add(initialCustomer);
-            testDbContext!.Vehicles.Add(initialVehicle);
-            testDbContext!.Fleet.Add(initialFleet);
-            testDbContext!.RentedVehicles.Add(initialRentedVehicle);
-            testDbContext!.SaveChanges();
+            testDbContext.Vehicles.Add(initialVehicle);
+            testDbContext.Fleet.Add(initialFleet);
+            testDbContext.RentedVehicles.Add(initialRentedVehicle);
+            testDbContext.SaveChanges();
         }
     }
 }

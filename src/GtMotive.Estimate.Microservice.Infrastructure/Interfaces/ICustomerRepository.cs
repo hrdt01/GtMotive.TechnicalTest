@@ -1,5 +1,4 @@
 ﻿using GtMotive.Estimate.Microservice.Domain.DTO;
-using GtMotive.Estimate.Microservice.Domain.Interfaces;
 
 namespace GtMotive.Estimate.Microservice.Infrastructure.Interfaces
 {
@@ -32,9 +31,9 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Interfaces
         /// <summary>
         /// Add new customer.
         /// </summary>
-        /// <param name="newCustomer"><see cref="ICustomer"/> instance.</param>
+        /// <param name="newCustomer"><see cref="CustomerDto"/> instance.</param>
         /// <returns>Instance of <see cref="CustomerDto"/>.</returns>
-        Task<CustomerDto?> AddNewCustomer(ICustomer newCustomer);
+        Task<CustomerDto?> AddNewCustomer(CustomerDto newCustomer);
 
         /// <summary>
         /// Get an instance of <see cref="CustomerDto"/> by its identifier.

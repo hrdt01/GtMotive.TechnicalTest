@@ -13,35 +13,44 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Implementation
     public class FleetRepository : IFleetRepository
     {
         private readonly FleetContext _fleetContext;
+        private readonly IFleetEntityFactory _fleetEntityFactory;
+        private readonly IVehicleEntityFactory _vehicleEntityFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FleetRepository"/> class.
         /// </summary>
         /// <param name="fleetContext">DB context.</param>
-        public FleetRepository(FleetContext fleetContext)
+        /// <param name="fleetEntityFactory">Instance of <see cref="IFleetEntityFactory"/>.</param>
+        /// <param name="vehicleEntityFactory">Instance of <see cref="IVehicleEntityFactory"/>.</param>
+        public FleetRepository(
+            FleetContext fleetContext,
+            IFleetEntityFactory fleetEntityFactory,
+            IVehicleEntityFactory vehicleEntityFactory)
         {
             ArgumentNullException.ThrowIfNull(fleetContext);
+            ArgumentNullException.ThrowIfNull(fleetEntityFactory);
+            ArgumentNullException.ThrowIfNull(vehicleEntityFactory);
 
             _fleetContext = fleetContext;
             _fleetContext.Database.EnsureCreated();
+            _fleetEntityFactory = fleetEntityFactory;
+            _vehicleEntityFactory = vehicleEntityFactory;
         }
 
         /// <inheritdoc />
-        public async Task<FleetDto?> AddNewVehicle(Guid fleetId, IVehicle sourceVehicle)
+        public async Task<FleetDto?> AddNewVehicle(Guid fleetId, VehicleDto sourceVehicle)
         {
             ArgumentNullException.ThrowIfNull(fleetId);
             ArgumentNullException.ThrowIfNull(sourceVehicle);
 
-            var fleetFromDb = await GetFleetById(fleetId);
-            if (fleetFromDb == null)
-            {
-                ArgumentNullException.ThrowIfNull(fleetFromDb);
-            }
-
-            var newVehicleDbInstance = sourceVehicle.ToDbEntity();
+            var newVehicleDbInstance = sourceVehicle.ToDbEntity(_vehicleEntityFactory);
             _ = await _fleetContext.Vehicles.AddAsync(newVehicleDbInstance);
 
-            var newFleetVehicle = new FleetVehicle { FleetId = fleetFromDb.FleetId, VehicleId = newVehicleDbInstance.VehicleId };
+            var newFleetVehicle = new FleetVehicle
+            {
+                FleetId = fleetId,
+                VehicleId = newVehicleDbInstance.VehicleId
+            };
             _ = await _fleetContext.FleetVehicles.AddAsync(newFleetVehicle);
 
             await _fleetContext.SaveChangesAsync();
@@ -50,11 +59,11 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Implementation
         }
 
         /// <inheritdoc />
-        public async Task<FleetDto?> AddNewFleet(IFleet newFleet)
+        public async Task<FleetDto?> AddNewFleet(FleetDto newFleet)
         {
             ArgumentNullException.ThrowIfNull(newFleet);
 
-            var fleetDbInstance = newFleet.ToDbEntity();
+            var fleetDbInstance = newFleet.ToDbEntity(_fleetEntityFactory);
             await _fleetContext.Fleet.AddAsync(fleetDbInstance);
             await _fleetContext.SaveChangesAsync();
 
