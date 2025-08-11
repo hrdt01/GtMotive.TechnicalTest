@@ -33,6 +33,11 @@
         /// <summary>
         /// Gets a generic FleetId.
         /// </summary>
+        public static Guid OtherFleetIdTest => Guid.NewGuid();
+
+        /// <summary>
+        /// Gets a generic FleetId.
+        /// </summary>
         public static Guid FleetIdTest => Guid.Parse("D9AD8F87-0DC5-4D6E-8034-6FD9915EA8BE");
 
         /// <summary>
