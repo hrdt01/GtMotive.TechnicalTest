@@ -61,6 +61,11 @@
         public static DateTime ManufacturedOnTest => Moment.AddYears(-1);
 
         /// <summary>
+        /// Gets a generic ManufacturedOn value.
+        /// </summary>
+        public static DateTime InvalidManufacturedOnTest => Moment.AddYears(-10);
+
+        /// <summary>
         /// Gets a generic RentStartedOn value.
         /// </summary>
         public static DateTime RentStartedOn => Moment;

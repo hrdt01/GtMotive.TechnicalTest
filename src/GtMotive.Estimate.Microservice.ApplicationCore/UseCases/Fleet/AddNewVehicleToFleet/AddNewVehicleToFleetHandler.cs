@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace GtMotive.Estimate.Microservice.Application.UseCases.Fleet.AddNewVehicleToFleet
 {
     /// <inheritdoc />
-    public class AddNewVehicleToFleetHandler
+    internal sealed class AddNewVehicleToFleetHandler
         : IRequestHandler<AddNewVehicleToFleetRequest, AddNewVehicleToFleetResponse>
     {
         private readonly IFleetService _fleetService;

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace GtMotive.Estimate.Microservice.Application.UseCases.Fleet.GetAvailableVehiclesInFleet
 {
     /// <inheritdoc />
-    public class GetAvailableVehiclesInFleetHandler
+    internal sealed class GetAvailableVehiclesInFleetHandler
         : IRequestHandler<GetAvailableVehiclesInFleetRequest, GetAvailableVehiclesInFleetResponse>
     {
         private readonly IFleetService _fleetService;

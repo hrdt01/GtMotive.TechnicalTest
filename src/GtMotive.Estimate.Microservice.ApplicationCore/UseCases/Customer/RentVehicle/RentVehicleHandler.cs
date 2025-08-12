@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace GtMotive.Estimate.Microservice.Application.UseCases.Customer.RentVehicle
 {
     /// <inheritdoc />
-    public class RentVehicleHandler
+    internal sealed class RentVehicleHandler
         : IRequestHandler<RentVehicleRequest, RentVehicleResponse>
     {
         private readonly ICustomerService _customerService;

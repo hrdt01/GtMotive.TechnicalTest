@@ -19,7 +19,7 @@ namespace GtMotive.Estimate.Microservice.Application.UseCases.Fleet.AddNewVehicl
 
         private bool BeValidDate(DateTime arg)
         {
-            return arg != DateTime.MinValue && arg != DateTime.MaxValue;
+            return arg != DateTime.MinValue && arg != DateTime.MaxValue && arg > DateTime.UtcNow.AddYears(-5);
         }
     }
 }

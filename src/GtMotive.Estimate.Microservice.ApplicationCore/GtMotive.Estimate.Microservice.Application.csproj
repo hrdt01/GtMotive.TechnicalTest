@@ -31,4 +31,7 @@
     <ItemGroup>
       <Folder Include="UseCases\Validators\" />
     </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="GtMotive.Estimate.Microservice.Application.UnitTest" />
+    </ItemGroup>
 </Project>

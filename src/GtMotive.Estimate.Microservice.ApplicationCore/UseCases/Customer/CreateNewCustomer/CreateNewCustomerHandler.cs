@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace GtMotive.Estimate.Microservice.Application.UseCases.Customer.CreateNewCustomer
 {
     /// <inheritdoc />
-    public class CreateNewCustomerHandler : IRequestHandler<CreateNewCustomerRequest, CreateNewCustomerResponse>
+    internal sealed class CreateNewCustomerHandler : IRequestHandler<CreateNewCustomerRequest, CreateNewCustomerResponse>
     {
         private readonly ICustomerService _customerService;
         private readonly ILogger<CreateNewCustomerHandler> _logger;
