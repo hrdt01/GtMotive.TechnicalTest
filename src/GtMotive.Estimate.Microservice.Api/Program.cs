@@ -6,7 +6,7 @@ namespace GtMotive.Estimate.Microservice.Api
     ///     The entry point and orchestrator of the application's startup process.
     ///     Its significance lies in configuring the web host, setting up services, and initiating the application.
     /// </summary>
-    public static class Program
+    public static partial class Program
     {
         /// <summary>
         ///     This method acts as the starting point of the application.

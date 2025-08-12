@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microserv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Application.UnitTest", "tests\GtMotive.Estimate.Microservice.Application.UnitTest\GtMotive.Estimate.Microservice.Application.UnitTest.csproj", "{F3F9DDFB-DBBF-4B29-BBD4-DD78D71B075A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtMotive.Estimate.Microservice.Api.UnitTest", "tests\GtMotive.Estimate.Microservice.Api.UnitTest\GtMotive.Estimate.Microservice.Api.UnitTest.csproj", "{0CB2C0B3-1CE2-4624-92E3-C88F0D26892C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{F3F9DDFB-DBBF-4B29-BBD4-DD78D71B075A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3F9DDFB-DBBF-4B29-BBD4-DD78D71B075A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3F9DDFB-DBBF-4B29-BBD4-DD78D71B075A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CB2C0B3-1CE2-4624-92E3-C88F0D26892C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CB2C0B3-1CE2-4624-92E3-C88F0D26892C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CB2C0B3-1CE2-4624-92E3-C88F0D26892C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CB2C0B3-1CE2-4624-92E3-C88F0D26892C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{9F652783-1337-403D-BF03-612F2269A44C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1C913101-A8EF-4C1F-BD3D-01C74D6E5D5B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{F3F9DDFB-DBBF-4B29-BBD4-DD78D71B075A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{0CB2C0B3-1CE2-4624-92E3-C88F0D26892C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C11E93-83A2-40AC-BFFF-4210FD18F25D}

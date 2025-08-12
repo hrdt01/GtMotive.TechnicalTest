@@ -11,9 +11,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Database
         /// </summary>
         public FleetContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "fleet.db");
+            DbPath = string.Empty;
         }
 
         /// <summary>
