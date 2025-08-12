@@ -27,5 +27,12 @@ namespace GtMotive.Estimate.Microservice.Services.Interfaces
         /// <param name="newCustomerName">Customer's name.</param>
         /// <returns>Instance of <see cref="CustomerDto"/>.</returns>
         Task<CustomerDto?> AddNewCustomer(string newCustomerName);
+
+        /// <summary>
+        /// Check if a customer trying to rent a vehicle still has active rented vehicles.
+        /// </summary>
+        /// <param name="source">RentedVehicleDto instance.</param>
+        /// <returns>Boolean flag.</returns>
+        Task<bool> CustomerHasActiveRentedVehicles(RentedVehicleDto source);
     }
 }

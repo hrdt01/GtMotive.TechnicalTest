@@ -49,5 +49,12 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Interfaces
         /// <param name="customerId">Customer identifier.</param>
         /// <returns>Instance of <see cref="RentedVehicleDto"/>.</returns>
         Task<RentedVehicleDto?> GetRentedVehicleByIdAndCustomerId(Guid rentedVehicleId, Guid customerId);
+
+        /// <summary>
+        /// Get a collection of rented vehicles by customer.
+        /// </summary>
+        /// <param name="customerId">Customer identifier.</param>
+        /// <returns>Collection of <see cref="RentedVehicleDto"/>.</returns>
+        Task<IEnumerable<RentedVehicleDto>?> GetRentedVehiclesByCustomerId(Guid customerId);
     }
 }

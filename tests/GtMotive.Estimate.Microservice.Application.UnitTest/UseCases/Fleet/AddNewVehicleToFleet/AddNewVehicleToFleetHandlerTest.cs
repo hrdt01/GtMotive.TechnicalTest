@@ -63,8 +63,8 @@ namespace GtMotive.Estimate.Microservice.Application.UnitTest.UseCases.Fleet.Add
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.Not.Null);
-                Assert.That(result!.Fleet, Is.Not.Null);
-                Assert.That(result!.Fleet!.Vehicles, Is.Not.Null);
+                Assert.That(result.Fleet, Is.Not.Null);
+                Assert.That(result.Fleet!.Vehicles, Is.Not.Null);
                 Assert.That(result.Fleet.Vehicles, Is.Not.Empty);
                 Assert.That(result.Fleet.Vehicles!.First().Brand, Is.EqualTo(BaseTestConstants.BrandNameTest));
                 Assert.That(result.Fleet.Vehicles!.First().Model, Is.EqualTo(BaseTestConstants.ModelNameTest));

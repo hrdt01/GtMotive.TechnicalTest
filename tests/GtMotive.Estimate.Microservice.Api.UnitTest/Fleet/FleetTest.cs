@@ -6,7 +6,7 @@ using GtMotive.Estimate.Microservice.Application.UseCases.Fleet.CreateNewFleet;
 using GtMotive.Estimate.Microservice.Application.UseCases.Fleet.GetAvailableVehiclesInFleet;
 using GtMotive.Estimate.Microservice.BaseTest.TestHelpers;
 
-namespace GtMotive.Estimate.Microservice.Api.UnitTest.Customer
+namespace GtMotive.Estimate.Microservice.Api.UnitTest.Fleet
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FleetTest"/> class.

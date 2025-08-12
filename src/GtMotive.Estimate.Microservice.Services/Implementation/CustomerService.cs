@@ -39,8 +39,9 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
             ArgumentNullException.ThrowIfNull(source);
             var availableVehicles =
                 await _fleetRepository.GetAvailableFleetVehicles(source.FleetId);
+            var activeRentedVehicles = await CustomerHasActiveRentedVehicles(source);
             var isAvailable = availableVehicles.Any(vehicle => vehicle.VehicleId == source.VehicleId);
-            return !isAvailable
+            return !isAvailable || activeRentedVehicles
                 ? null
                 : await _customerRepository.RentVehicle(source);
         }
@@ -75,6 +76,14 @@ namespace GtMotive.Estimate.Microservice.Services.Implementation
             var customerDto = new CustomerDto { CustomerName = newCustomerName };
 
             return await _customerRepository.AddNewCustomer(customerDto);
+        }
+
+        /// <inheritdoc />
+        public async Task<bool> CustomerHasActiveRentedVehicles(RentedVehicleDto source)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            var allRentingsByUser = await _customerRepository.GetRentedVehiclesByCustomerId(source.CustomerId);
+            return allRentingsByUser != null && allRentingsByUser.Any(renting => renting.EndRent > DateTime.UtcNow);
         }
     }
 }

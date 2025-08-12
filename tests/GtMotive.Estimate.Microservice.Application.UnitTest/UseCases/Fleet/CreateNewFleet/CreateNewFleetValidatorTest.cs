@@ -43,7 +43,7 @@ namespace GtMotive.Estimate.Microservice.Application.UnitTest.UseCases.Fleet.Cre
             var validator = new CreateNewFleetValidator();
             var request = new CreateNewFleetRequest
             {
-                FleetName = fleetName!
+                FleetName = fleetName
             };
 
             // Act

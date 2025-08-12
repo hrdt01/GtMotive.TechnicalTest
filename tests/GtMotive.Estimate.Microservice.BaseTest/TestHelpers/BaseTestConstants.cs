@@ -26,6 +26,11 @@
         public const string ModelNameTest = "ModelNameTest";
 
         /// <summary>
+        /// Gets a generic model name.
+        /// </summary>
+        public const string AnotherModelNameTest = "AnotherModelNameTest";
+
+        /// <summary>
         /// Gets a moment in time.
         /// </summary>
         public static readonly DateTime Moment = DateTime.UtcNow;

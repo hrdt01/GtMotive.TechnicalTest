@@ -39,8 +39,4 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Fleet\" />
-  </ItemGroup>
-
 </Project>

@@ -106,6 +106,27 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Implementation
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<RentedVehicleDto>?> GetRentedVehiclesByCustomerId(Guid customerId)
+        {
+            var fromDb = await _fleetContext.RentedVehicles.AsNoTracking()
+                .OrderByDescending(rentedVehicle => rentedVehicle.RentFinishedOn)
+                .Where(rentedVehicle => rentedVehicle.CustomerId == customerId)
+                .ToListAsync();
+
+            return fromDb.Count <= 0
+                ? null
+                : fromDb.Select(entity => new RentedVehicleDto
+                {
+                    RentedVehicleId = entity.RentedVehicleId,
+                    FleetId = entity.FleetId,
+                    VehicleId = entity.VehicleId,
+                    CustomerId = entity.CustomerId,
+                    StartRent = entity.RentStartedOn,
+                    EndRent = entity.RentFinishedOn
+                });
+        }
+
+        /// <inheritdoc />
         public async Task<RentedVehicleDto?> GetRentedVehicleById(Guid rentedVehicleId)
         {
             var fromDb = await _fleetContext.RentedVehicles.AsNoTracking()
